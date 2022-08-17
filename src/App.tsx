@@ -3,9 +3,22 @@ import Greeter from './components/Greeter';
 import ShoppingList from './components/ShoppingList';
 import './App.css';
 import Items from './models/item';
+import ShoppingListForm from './components/ShoppingListForm';
 
 function App() {
   const [items, setItems] = React.useState<Items[]>([]);
+
+  const addItem = (product: string) => {
+    if (!product) return;
+    setItems([
+      ...items,
+      {
+        id: Date.now(),
+        name: product,
+        quantity: Math.floor(Math.random() * 100),
+      },
+    ]);
+  };
 
   // const items = [
   //   { id: 1, name: 'Lemon', quantity: 3 },
@@ -15,8 +28,8 @@ function App() {
 
   return (
     <div>
-      <h1>Hello</h1>
       <ShoppingList items={items} />
+      <ShoppingListForm onAddItem={addItem} />
     </div>
   );
 }
